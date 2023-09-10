@@ -2,42 +2,43 @@ import { useLoaderData } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
 export async function loader({ params }) {
-    console.log(params)
-    const page = {'title':params.pageId, "content":"eeee"};
-    console.log(page)
-    return { page };
-  }
+  console.log(params)
+  const page = { 'title': params.pageId, "content": "eeee" };
+  console.log(page)
+  return { page };
+}
 
 
 
 export default function Article() {
-    const [data, setData] = useState(null);
-    const { page } = useLoaderData();
-
+  const { page } = useLoaderData();
+  const [data, setData] = useState({ 'title': page.title, 'content': '' });
   useEffect(() => {
-    fetch(`api/page/${page.title}`)
+    console.log('start')
+    fetch(`/api/page/${page.title}`)
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error(error));
+    console.log('fin')
   },
-   []);
+    []);
 
-    return (
-        <div>
-        <h1>{data.title}</h1>
-        <p class="siteSub">From Wikipedia, the free encyclopedia</p>
-        <p class="roleNote">This article is about {data.title}.</p>
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      <p class="siteSub">From Wikipedia, the free encyclopedia</p>
+      <p class="roleNote">This article is about {data.title}.</p>
 
-        <div class="articleRight">
-            <div class="articleRightInner">
-                <img src="./img/pencil.jpg" alt="pencil" />
-            </div>
-            This is a blue <a href="">pencil</a>
+      <div class="articleRight">
+        <div class="articleRightInner">
+          <img src="./img/pencil.jpg" alt="pencil" />
         </div>
-        <p>
+        This is a blue <a href="">pencil</a>
+      </div>
+      <p>
         {data.content}
-        </p>
-        <div class="lavenderBox">
+      </p>
+      {/* <div class="lavenderBox">
             <div class="header">Panel title</div>
             <div class="subtitle linklist"><a href="#">Lorem</a> <a href="#">Ipsum</a> <a href="#">Dolorestitas</a> </div>
             <div class="linklist">
@@ -45,10 +46,11 @@ export default function Article() {
             </div>
             
             <div class="subtitle">Subtitle</div>
-        </div>
-        
-        <div class="categories">
-            <a href="#">Minimum corrumpit </a> <a href="#">Regione suscipit </a> <a href="#">Has et partem </a>
-        </div>
-        </div>
-    )}
+        </div> */}
+
+      <div class="categories">
+        <a href="#">This needs an update</a> <a href="#">Seriously </a>
+      </div>
+    </div>
+  )
+}

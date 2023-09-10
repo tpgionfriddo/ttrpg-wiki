@@ -1,3 +1,3 @@
-export const getPage = async(pageId) => {
+export const getPage = async (pageId) => {
     return 'a'
 }
